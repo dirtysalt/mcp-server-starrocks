@@ -21,9 +21,10 @@ def get_connection():
     if global_connection is None:
         global_connection = mysql.connector.connect(
             host=os.getenv('STARROCKS_HOST', 'localhost'),
-            port=os.getenv('STARROCKS_PORT', '9030'),
+            port=os.getenv('STARROCKS_PORT', '41003'),
             user=os.getenv('STARROCKS_USER', 'root'),
-            password=os.getenv('STARROCKS_PASSWORD', '')
+            password=os.getenv('STARROCKS_PASSWORD', ''),
+            database=os.getenv('STARROCKS_DATABASE', 'hive.zya')
         )
     return global_connection
 
@@ -158,3 +159,7 @@ async def main():
                 ),
             ),
         )
+
+if __name__ == "__main__":
+    import asyncio
+    asyncio.run(main())
